@@ -41,7 +41,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.Location = new System.Drawing.Point(0, -1);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(586, 516);
+            this.pictureBox.Size = new System.Drawing.Size(726, 538);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -53,7 +53,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 515);
+            this.ClientSize = new System.Drawing.Size(726, 537);
             this.Controls.Add(this.pictureBox);
             this.Name = "RoomForm";
             this.Text = "RoomForm";

@@ -7,14 +7,13 @@ using System.Drawing;
 namespace kitty_s_room {
     abstract class BaseObject {
         public PointF position;
-        public int width;
-        public int height;
+        public RectangleF size;
 
         public abstract void draw(Graphics graph);
         public abstract void move();
 
         public bool hitTest(int x, int y) {
-            return (x >= position.X && x <= position.X + width && y >= position.Y && y <= position.Y + height);
+            return (x >= position.X && x <= position.X + size.Width && y >= position.Y && y <= position.Y + size.Height);
         }
     }
 }

@@ -8,13 +8,14 @@ namespace kitty_s_room {
 
     class Ball: BaseObject {
         public Ball(PointF pos) {
-            this.width = 50;
-            this.height = 50;
             this.position = pos;
+
+            SizeF sz = new SizeF(50, 50);
+            this.size = new RectangleF(position, sz);
         }
 
          public override void draw(Graphics graph) {
-             ImagePool.Instance.DrawImage(graph, position, ImageEnum.ball);
+             ImagePool.Instance.DrawImage(graph, this.size, ImageEnum.ball);
          }
 
          public override void move() {

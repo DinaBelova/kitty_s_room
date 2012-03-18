@@ -22,8 +22,8 @@ namespace kitty_s_room {
         }
 
 
-        public void DrawImage(Graphics gr, PointF pos, ImageEnum en) {
-            gr.DrawImage(imageObject[en], pos.X, pos.Y);
+        public void DrawImage(Graphics gr, RectangleF size, ImageEnum en) {
+            gr.DrawImage(imageObject[en], size);
         }
 
         private sealed class SingletonCreator {

@@ -96,11 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\ball.png" />
-    <Content Include="resources\bowl.jpg" />
+    <Content Include="resources\bowl.png" />
     <Content Include="resources\carpet.bmp" />
-    <Content Include="resources\cat.jpg" />
+    <Content Include="resources\cat.png" />
     <Content Include="resources\floor.jpg" />
-    <Content Include="resources\lotok.jpg" />
+    <Content Include="resources\lotok.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

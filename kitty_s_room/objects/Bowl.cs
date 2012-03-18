@@ -8,13 +8,15 @@ namespace kitty_s_room {
 
     class Bowl: BaseObject {
         public Bowl(PointF pos) {
-            this.width = 50;
-            this.height = 50;
-            this.position = pos; 
+            this.position.X = pos.X - 65;
+            this.position.Y = pos.Y - 90;
+
+            SizeF sz = new SizeF(50, 50);
+            this.size = new RectangleF(position, sz);
         }
 
         public override void draw(Graphics graph) {
-            ImagePool.Instance.DrawImage(graph, position, ImageEnum.bowl);
+            ImagePool.Instance.DrawImage(graph, this.size, ImageEnum.bowl);
         }
 
         public override void move() {

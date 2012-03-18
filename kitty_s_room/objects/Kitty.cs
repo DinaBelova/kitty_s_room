@@ -9,13 +9,15 @@ namespace kitty_s_room {
     class Kitty: BaseObject {
 
         public Kitty(PointF pos) {
-            this.width = 50;
-            this.height = 50;
-            this.position = pos;
+            this.position.X = pos.X - 100;
+            this.position.Y = pos.Y - 100;
+
+            SizeF sz = new SizeF(250, 200);
+            this.size = new RectangleF(position, sz);
         }
 
         public override void draw(Graphics graph) {
-            ImagePool.Instance.DrawImage(graph, position, ImageEnum.kitty);
+            ImagePool.Instance.DrawImage(graph, this.size, ImageEnum.kitty);
         }
 
         public override void move() {
