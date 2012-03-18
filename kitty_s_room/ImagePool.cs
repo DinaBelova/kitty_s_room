@@ -12,7 +12,7 @@ namespace kitty_s_room {
         protected ImagePool() {
             floor = Images.floor;
 
-            System.Console.Write(Images.cat);
+            imageObject = new Dictionary<ImageEnum, Image>();
 
             imageObject.Add(ImageEnum.kitty, Images.cat);
             imageObject.Add(ImageEnum.ball, Images.ball);

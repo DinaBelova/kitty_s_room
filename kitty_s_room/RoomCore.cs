@@ -44,7 +44,7 @@ namespace kitty_s_room
 
             foreach (BaseObject obj in this.objectList)
             {
-                obj.move();
+                //obj.move();
             }
         }
 
