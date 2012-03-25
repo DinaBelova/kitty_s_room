@@ -14,12 +14,8 @@ namespace kitty_s_room {
             this.size = new SizeF(50, 50);
         }
 
-         public override void draw(Graphics graph) {
-             ImagePool.Instance.DrawImage(graph, new RectangleF(this.position, this.size), ImageEnum.ball);
-         }
-
-         public override void move() {
-             position = position;
-         }
+        public override ImageEnum getImageEnum() {
+            return ImageEnum.ball;
+        }
     }
 }

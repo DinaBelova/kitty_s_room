@@ -9,12 +9,26 @@ namespace kitty_s_room {
         public PointF position;
         public SizeF size;
         public bool selected;
+        private Bitmap bitmap;
 
-        public abstract void draw(Graphics graph);
-        public abstract void move();
+        public abstract ImageEnum getImageEnum();
 
-        public bool hitTest(int x, int y) {
-            return (x >= position.X && x <= position.X + size.Width && y >= position.Y && y <= position.Y + size.Height);
+        public void move() { }
+        
+        public Image getImage() { 
+            return ImagePool.Instance.imageObject[getImageEnum()];
+        }
+
+        public Bitmap getBitmap() {
+            if (bitmap == null) {
+                bitmap = new Bitmap(getImage(), size.ToSize());
+            }
+
+            return bitmap;
+        }
+
+        public void draw(Graphics graph) {
+            ImagePool.Instance.DrawImage(graph, new RectangleF(this.position, this.size), getImageEnum());
         }
     }
 }

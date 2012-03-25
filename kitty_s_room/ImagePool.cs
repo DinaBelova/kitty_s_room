@@ -7,6 +7,7 @@ using System.Drawing;
 namespace kitty_s_room {
     public class ImagePool {
         public Dictionary<ImageEnum, Image> imageObject { get; protected set; }
+     
         public Image floor { get; protected set; }
 
         protected ImagePool() {

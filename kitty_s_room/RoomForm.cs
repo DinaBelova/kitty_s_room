@@ -11,6 +11,9 @@ namespace kitty_s_room {
     public partial class RoomForm : Form {
         private RoomCore roomCore = RoomCore.instance;
 
+        private Bitmap background;
+        private bool changed;
+        
         public RoomForm() {
             InitializeComponent();
         }
@@ -18,20 +21,23 @@ namespace kitty_s_room {
         private void RoomForm_Load(object sender, EventArgs e) {
             roomCore.initialize(this.Width, this.Height);
             timer.Enabled = true;
+
+            background = new Bitmap(ImagePool.Instance.floor, Width, Height);
         }
 
         private void timer_Tick(object sender, EventArgs e) {
             // roomCore.Resize(Width, Height);
             roomCore.refresh();
-            Bitmap bitmap = new Bitmap(ImagePool.Instance.floor, Width, Height);
-            Graphics graph = Graphics.FromImage(bitmap);
-            roomCore.drawWindow(graph);
-            pictureBox.Image = bitmap;
-            pictureBox.Refresh();
+
+            if (changed) {
+                changed = false;
+                pictureBox.Invalidate();
+            }
         }
 
-        private void RoomForm_Paint(object sender, PaintEventArgs e) {
-            roomCore.drawWindow(e.Graphics);
+        private void pictureBox_Paint(object sender, PaintEventArgs e) {
+            e.Graphics.DrawImage(background, 0, 0);
+            roomCore.drawObjects(e.Graphics); 
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e) {
@@ -43,13 +49,13 @@ namespace kitty_s_room {
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e) {
-            roomCore.mouseMove(e);
+            if (roomCore.mouseMove(e)) {
+                changed = true;
+            }
         }
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e) {
             roomCore.mouseUp(e);
-        }
-
-        
+        }     
     }
 }

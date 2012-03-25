@@ -28,11 +28,11 @@ namespace kitty_s_room {
             Tray tray = new Tray(new PointF((float)this.windowWidth, 0));
             Carpet carpet = new Carpet(new PointF(0, (float)this.windowHeight));
 
-            this.objectList.Add(kitty);
-            this.objectList.Add(ball);
+            this.objectList.Add(carpet);
             this.objectList.Add(bowl);
             this.objectList.Add(tray);
-            this.objectList.Add(carpet);
+            this.objectList.Add(ball);
+            this.objectList.Add(kitty);
         }
 
         public void refresh() {
@@ -45,7 +45,7 @@ namespace kitty_s_room {
             }
         }
 
-        internal void drawWindow(Graphics graph) {
+        internal void drawObjects(Graphics graph) {
             if (this.objectList == null) {
                 throw new ApplicationException("Необходимо сначала вызвать метод инициализации initialize()");
             }
@@ -58,7 +58,7 @@ namespace kitty_s_room {
         public void select(int x, int y) {
             for (int i = 0; i < objectList.Count; i++) {
                 BaseObject currentObject = objectList[i];
-                if (currentObject.hitTest(x, y)) {
+                if (hitTest(currentObject, x, y)) {
                     if (currentObject.selected) {
                         currentObject.selected = false;
                     } else {
@@ -69,23 +69,40 @@ namespace kitty_s_room {
         }
 
         public void mouseDown(MouseEventArgs e) {
-            for (int i = 0; i < objectList.Count; i++) {
+            for (int i = objectList.Count - 1; i >= 0; i--) {
                 BaseObject currentObject = objectList[i];
-                if (currentObject.hitTest(e.X, e.Y)) {
+                if (hitTest(currentObject, e.X, e.Y)) {
                     draggingObject = currentObject;
                     dragShiftX = e.X - (int)currentObject.position.X;
                     dragShiftY = e.Y - (int)currentObject.position.Y;
                     break;
                 }
             }
+
             mouseMove(e);
         }
 
-        public void mouseMove(MouseEventArgs e) {
+        private bool hitTest(BaseObject obj, int x, int y) {
+            if (!(x >= obj.position.X && x <= obj.position.X + obj.size.Width && y >= obj.position.Y && y <= obj.position.Y + obj.size.Height)) {
+                return false;
+            }
+
+            Bitmap bitmap = obj.getBitmap();
+            if (bitmap.GetPixel(x - (int)obj.position.X, y - (int)obj.position.Y).A < 5) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool mouseMove(MouseEventArgs e) {
            if (draggingObject != null) {
                draggingObject.position.X = e.X - dragShiftX;
                draggingObject.position.Y = e.Y - dragShiftY;
+               return true;
            }
+
+           return false;
         }
 
         public void mouseUp(MouseEventArgs e) {
