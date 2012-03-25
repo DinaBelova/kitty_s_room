@@ -7,7 +7,8 @@ using System.Drawing;
 namespace kitty_s_room {
     abstract class BaseObject {
         public PointF position;
-        public RectangleF size;
+        public SizeF size;
+        public bool selected;
 
         public abstract void draw(Graphics graph);
         public abstract void move();

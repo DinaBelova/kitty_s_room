@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
-namespace kitty_s_room
-{
-    class RoomCore
-    {
+namespace kitty_s_room {
+    class RoomCore {
         public int windowWidth;
         public int windowHeight;
         private List<BaseObject> objectList;
+        private BaseObject draggingObject;
+        int dragShiftX;
+        int dragShiftY;
 
         public RoomCore() { }
         public static RoomCore instance = new RoomCore();
 
-        public void initialize(int width, int height)
-        {
+        public void initialize(int width, int height) {
             this.windowWidth = width;
             this.windowHeight = height;
             this.objectList = new List<BaseObject>();
 
-            // добавить объекты в лист объектов: котенок, мячик, лоток, миска, коврик
             Kitty kitty = new Kitty(new PointF((float)(windowWidth / 2.0), (float)(windowHeight / 2.0)));
             Ball ball = new Ball(new PointF(0, 0));
             Bowl bowl = new Bowl(new PointF((float)this.windowWidth, (float)this.windowHeight));
@@ -35,35 +35,62 @@ namespace kitty_s_room
             this.objectList.Add(carpet);
         }
 
-        public void refresh()
-        {
-            if (this.objectList == null)
-            {
+        public void refresh() {
+            if (this.objectList == null) {
                 throw new ApplicationException("Необходимо сначала вызвать метод инициализации initialize()");
             }
 
-            foreach (BaseObject obj in this.objectList)
-            {
-                //obj.move();
+            foreach (BaseObject obj in this.objectList) {
+                obj.move();
             }
         }
 
-        internal void drawWindow(Graphics graph)
-        {
-            if (this.objectList == null)
-            {
+        internal void drawWindow(Graphics graph) {
+            if (this.objectList == null) {
                 throw new ApplicationException("Необходимо сначала вызвать метод инициализации initialize()");
             }
 
-            foreach (BaseObject obj in this.objectList)
-            {
+            foreach (BaseObject obj in this.objectList) {
                 obj.draw(graph);
             }
         }
 
-        public void select(int x, int y)
-        {
-            //заглушка
+        public void select(int x, int y) {
+            for (int i = 0; i < objectList.Count; i++) {
+                BaseObject currentObject = objectList[i];
+                if (currentObject.hitTest(x, y)) {
+                    if (currentObject.selected) {
+                        currentObject.selected = false;
+                    } else {
+                        currentObject.selected = true;
+                    }
+                }
+            }
+        }
+
+        public void mouseDown(MouseEventArgs e) {
+            for (int i = 0; i < objectList.Count; i++) {
+                BaseObject currentObject = objectList[i];
+                if (currentObject.hitTest(e.X, e.Y)) {
+                    draggingObject = currentObject;
+                    dragShiftX = e.X - (int)currentObject.position.X;
+                    dragShiftY = e.Y - (int)currentObject.position.Y;
+                    break;
+                }
+            }
+            mouseMove(e);
+        }
+
+        public void mouseMove(MouseEventArgs e) {
+           if (draggingObject != null) {
+               draggingObject.position.X = e.X - dragShiftX;
+               draggingObject.position.Y = e.Y - dragShiftY;
+           }
+        }
+
+        public void mouseUp(MouseEventArgs e) {
+            mouseMove(e);
+            draggingObject = null;
         }
     }
 }

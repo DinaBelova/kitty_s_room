@@ -11,16 +11,13 @@ namespace kitty_s_room {
             this.position.X = pos.X - 65;
             this.position.Y = pos.Y - 90;
 
-            SizeF sz = new SizeF(50, 50);
-            this.size = new RectangleF(position, sz);
+            this.size = new SizeF(50, 50);
         }
 
         public override void draw(Graphics graph) {
-            ImagePool.Instance.DrawImage(graph, this.size, ImageEnum.bowl);
+            ImagePool.Instance.DrawImage(graph, new RectangleF(this.position, this.size), ImageEnum.bowl);
         }
 
-        public override void move() {
-            throw new NotImplementedException();
-        }
+        public override void move() {}
     }
 }

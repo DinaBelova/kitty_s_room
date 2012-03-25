@@ -44,9 +44,14 @@
             this.pictureBox.Size = new System.Drawing.Size(726, 538);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
+            this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
             // timer
             // 
+            this.timer.Interval = 25;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // RoomForm
@@ -58,6 +63,7 @@
             this.Name = "RoomForm";
             this.Text = "RoomForm";
             this.Load += new System.EventHandler(this.RoomForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.RoomForm_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
