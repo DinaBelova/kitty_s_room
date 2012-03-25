@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace kitty_s_room {
     public partial class RoomForm : Form {
@@ -36,6 +37,7 @@ namespace kitty_s_room {
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e) {
+            //e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.DrawImage(background, 0, 0);
             roomCore.drawObjects(e.Graphics); 
         }
