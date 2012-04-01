@@ -10,7 +10,7 @@ using System.Drawing.Drawing2D;
 
 namespace kitty_s_room {
     public partial class RoomForm : Form {
-        private RoomCore roomCore = RoomCore.instance;
+        private RoomCore roomCore = RoomCore.INSTANCE;
 
         private Bitmap background;
         private bool changed;
@@ -28,7 +28,7 @@ namespace kitty_s_room {
 
         private void timer_Tick(object sender, EventArgs e) {
             // roomCore.Resize(Width, Height);
-            roomCore.refresh();
+            changed |= roomCore.refresh();
 
             if (changed) {
                 changed = false;

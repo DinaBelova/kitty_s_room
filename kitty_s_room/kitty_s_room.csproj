@@ -68,6 +68,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="strategies\KittyBallFollowingStrategy.cs" />
+    <Compile Include="strategies\KittyLifeStrategy.cs" />
+    <Compile Include="strategies\NoOpKittyStrategy.cs" />
+    <Compile Include="strategies\ObjectStrategy.cs" />
     <EmbeddedResource Include="Images.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Images.Designer.cs</LastGenOutput>

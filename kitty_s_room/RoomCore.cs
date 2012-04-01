@@ -7,15 +7,16 @@ using System.Windows.Forms;
 
 namespace kitty_s_room {
     class RoomCore {
+        public static RoomCore INSTANCE = new RoomCore();
+
         public int windowWidth;
         public int windowHeight;
         private List<BaseObject> objectList;
-        private BaseObject draggingObject;
-        int dragShiftX;
-        int dragShiftY;
+        public BaseObject draggingObject;
+        private int dragShiftX;
+        private int dragShiftY;
 
         public RoomCore() { }
-        public static RoomCore instance = new RoomCore();
 
         public void initialize(int width, int height) {
             this.windowWidth = width;
@@ -35,14 +36,17 @@ namespace kitty_s_room {
             this.objectList.Add(kitty);
         }
 
-        public void refresh() {
+        public bool refresh() {
             if (this.objectList == null) {
                 throw new ApplicationException("Необходимо сначала вызвать метод инициализации initialize()");
             }
 
+            bool visibleChanges = false;
             foreach (BaseObject obj in this.objectList) {
-                obj.move();
+                visibleChanges |= obj.move();
             }
+
+            return visibleChanges;
         }
 
         internal void drawObjects(Graphics graph) {

@@ -13,7 +13,7 @@ namespace kitty_s_room {
 
         public abstract ImageEnum getImageEnum();
 
-        public void move() { }
+        public virtual bool move() { return false; }
         
         public Image getImage() { 
             return ImagePool.Instance.imageObject[getImageEnum()];
